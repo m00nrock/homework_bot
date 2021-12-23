@@ -46,7 +46,6 @@ class MyException(Exception):
 
 def send_message(bot, message):
     """Отправить сообщение в телеграм."""
-
     try:
         bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
         logging.info(f'Бот отправил сообщение. {message}')
@@ -57,7 +56,6 @@ def send_message(bot, message):
 
 def get_api_answer(current_timestamp):
     """Получить ответ от сервера практикума по API."""
-
     timestamp = current_timestamp or int(time.time())
     params = {'from_date': timestamp}
     homework_statuses = requests.get(ENDPOINT, headers=HEADERS, params=params)
@@ -74,7 +72,6 @@ def get_api_answer(current_timestamp):
 
 def check_response(response):
     """Проверить правильность ответа от сервера."""
-
     if not isinstance(response['homeworks'], list):
         logging.error('Запрос к серверу пришёл не в виде списка')
         send_message(BOT, 'Запрос к серверу пришёл не в виде списка')
@@ -84,7 +81,6 @@ def check_response(response):
 
 def parse_status(homework):
     """Проверить статус работы в ответе сервера."""
-
     homework_name = homework['homework_name']
     homework_status = homework['status']
     if homework_status not in HOMEWORK_STATUSES:
@@ -97,7 +93,6 @@ def parse_status(homework):
 
 def check_tokens():
     """Проверить обязательные для работы бота переменные."""
-
     if (PRACTICUM_TOKEN is None
        or TELEGRAM_CHAT_ID is None
        or TELEGRAM_TOKEN is None):
@@ -107,7 +102,6 @@ def check_tokens():
 
 def main():
     """Основная логика работы бота."""
-
     if check_tokens() is False:
         logging.critical('Всё плохо, зовите админа')
         return 0
