@@ -19,9 +19,9 @@ handler = logging.StreamHandler(sys.stdout)
 logger.addHandler(handler)
 
 
-PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN')
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
-TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
+PRACTICUM_TOKEN = os.getenv('PRACTICUM_TOKEN', default='SUP3R-S3CR3T-K3Y-F0R-MY-PR0J3CT')
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN', default='SUP3R-S3CR3T')
+TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID', default='123456')
 
 RETRY_TIME = 600
 ENDPOINT = 'https://practicum.yandex.ru/api/user_api/homework_statuses/'
