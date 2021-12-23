@@ -24,7 +24,7 @@ TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
 RETRY_TIME = 600
-ENDPOINT = 'https://practicum.yandex.ru/api/user_api/homework_statuses/'
+ENDPOINT = 'https://practicum.yandex.ru/api/user_api/homework_statues/'
 HEADERS = {'Authorization': f'OAuth {PRACTICUM_TOKEN}'}
 BOT = telegram.Bot(token=TELEGRAM_TOKEN)
 
@@ -115,7 +115,6 @@ def main():
             if len(homework) > 0:
                 send_message(BOT, parse_status(homework[0]))
             logging.info('Заданий нет')
-            send_message(BOT, 'Заданий нет')
             current_timestamp = response['current_date']
             time.sleep(RETRY_TIME)
 
