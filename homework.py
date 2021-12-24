@@ -44,6 +44,7 @@ logging.debug('Бот успешно запущен.')
 
 class MyException(Exception):
     """Кастомное исключение для бота."""
+
     pass
 
 
