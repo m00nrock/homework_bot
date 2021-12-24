@@ -3,6 +3,7 @@ import os
 import sys
 import time
 
+from http import HTTPStatus
 import requests
 import telegram
 from dotenv import load_dotenv
@@ -62,7 +63,7 @@ def get_api_answer(current_timestamp):
     timestamp = current_timestamp or int(time.time())
     params = {'from_date': timestamp}
     homework_statuses = requests.get(ENDPOINT, headers=HEADERS, params=params)
-    if homework_statuses.status_code != 200:
+    if homework_statuses.status_code != HTTPStatus.OK:
         logging.error(
             f'Сбой работы. Ответ сервера {homework_statuses.status_code}')
         send_message(
@@ -96,9 +97,14 @@ def parse_status(homework):
 
 def check_tokens():
     """Проверить обязательные для работы бота переменные."""
-    if (PRACTICUM_TOKEN is None
-       or TELEGRAM_CHAT_ID is None
-       or TELEGRAM_TOKEN is None):
+    if PRACTICUM_TOKEN is None:
+        logging.error('PRACTICUM_TOKEN not found')
+        return False
+    if TELEGRAM_CHAT_ID is None:
+        logging.error('TELEGRAM_CHAT_ID not found')
+        return False
+    if TELEGRAM_TOKEN is None:
+        logging.error('TELEGRAM_TOKEN not found')
         return False
     return True
 
